@@ -17,8 +17,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('photo')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->unsignedBigInteger('plan_id')->default(1);
+            $table->integer('current_word_usage')->default(1000); // for free plan
+            $table->integer('words_used')->default(0);
+            $table->string('status')->default('1');
             $table->rememberToken();
             $table->timestamps();
+
+            // $table->foreign('plan_id')->references('id')->on('plans')->nullOnDelete();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
