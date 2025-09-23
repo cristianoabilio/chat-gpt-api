@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
@@ -9,19 +10,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//user's routes
-Route::middleware(['auth', IsUser::class])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
 
-// Admin routes
-Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+/// User Routes
+Route::middleware(['auth', IsUser::class])->group(function () {
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
 });
+/// Eend User Routes
+
+
+/// Admin Routes
+Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () {
+
+Route::get('/dashboard', function () {
+    return view('admin.index');
+})->name('admin.dashboard');
+
+Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+});
+/// Eend User Routes
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
