@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
@@ -34,6 +35,16 @@ Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.p
 Route::get('/admin/change-password', [AdminController::class, 'changePassword'])->name('admin.change.password');
 Route::post('/admin/profile/update', [AdminController::class, 'profileUpdate'])->name('admin.profile.update');
 Route::post('/admin/password/update', [AdminController::class, 'passwordUpdate'])->name('admin.password.update');
+
+Route::controller(PlanController::class)->group(function() {
+    Route::get('/admin/plans/all', 'index')->name('admin.plans.all');
+    Route::get('/admin/plans/add', 'create')->name('admin.plans.add');
+    Route::get('/admin/plans/edit/{id}', 'edit')->name('admin.plans.edit');
+    Route::get('/admin/plans/delete/{id}', 'destroy')->name('admin.plans.delete');
+    Route::post('/admin/plans/store', 'store')->name('admin.plans.store');
+    Route::post('/admin/plans/update/{id}', 'update')->name('admin.plans.update');
+
+});
 
 });
 /// Eend User Routes

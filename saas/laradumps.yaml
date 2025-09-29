@@ -8,10 +8,10 @@ app:
     wsl_config: wsl+Ubuntu/
 config:
     sleep: 0
-    macos_auto_launch: false
+    macos_auto_launch: true
 observers:
     auto_invoke_app: false
-    enabled_in_testing: false
+    enabled_in_testing: true
     dump: false
     original_dump: true
     queries: false
