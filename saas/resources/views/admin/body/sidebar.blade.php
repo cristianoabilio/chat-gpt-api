@@ -21,7 +21,7 @@
             <div class="nk-sidebar-menu">
                 <ul class="nk-menu">
                     <li class="nk-menu-item">
-                        <a href="index.html" class="nk-menu-link">
+                        <a href="{{ url('/') }}" class="nk-menu-link">
                             <span class="nk-menu-icon">
                                 <em class="icon ni ni-dashboard-fill"></em>
                             </span>
@@ -33,17 +33,17 @@
                             <span class="nk-menu-icon">
                                 <em class="icon ni ni-folder-list"></em>
                             </span>
-                            <span class="nk-menu-text">Documents</span>
+                            <span class="nk-menu-text">Account</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="document-saved.html" class="nk-menu-link">
-                                    <span class="nk-menu-text">Saved</span>
+                                <a href="{{ route('admin.profile') }}" class="nk-menu-link">
+                                    <span class="nk-menu-text">Profile</span>
                                 </a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="document-drafts.html" class="nk-menu-link">
-                                    <span class="nk-menu-text">Drafts</span>
+                                <a href="{{ route('admin.change.password') }}" class="nk-menu-link">
+                                    <span class="nk-menu-text">Change Password</span>
                                 </a>
                             </li>
                         </ul>
@@ -92,7 +92,7 @@
                 <a class="d-flex px-3 py-2 bg-primary bg-opacity-10 rounded-bottom-3" href="profile.html">
                     <div class="media-group">
                         <div class="media media-sm media-middle media-circle text-bg-primary">
-                            <img src="{{ asset('backend/images/avatar/a.png') }}" />
+                            <img src="{{ ! empty($profile->photo) ? url('upload/admin_images/' . $profile->photo) : asset('backend/images/avatar/a.png') }}" />
                         </div>
                         <div class="media-text">
                             <h6 class="fs-6 mb-0">{{ $profile->name }}</h6>

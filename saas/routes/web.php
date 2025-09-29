@@ -30,6 +30,10 @@ Route::get('/dashboard', function () {
 })->name('admin.dashboard');
 
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
+Route::get('/admin/change-password', [AdminController::class, 'changePassword'])->name('admin.change.password');
+Route::post('/admin/profile/update', [AdminController::class, 'profileUpdate'])->name('admin.profile.update');
+Route::post('/admin/password/update', [AdminController::class, 'passwordUpdate'])->name('admin.password.update');
 
 });
 /// Eend User Routes
