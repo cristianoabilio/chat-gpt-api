@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\PlanController;
+use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
@@ -43,6 +44,16 @@ Route::controller(PlanController::class)->group(function() {
     Route::get('/admin/plans/delete/{id}', 'destroy')->name('admin.plans.delete');
     Route::post('/admin/plans/store', 'store')->name('admin.plans.store');
     Route::post('/admin/plans/update/{id}', 'update')->name('admin.plans.update');
+
+});
+
+Route::controller(TemplateController::class)->group(function() {
+    Route::get('/admin/template', 'index')->name('admin.template');
+    Route::get('/admin/template/add', 'create')->name('admin.create.template');
+    // Route::get('/admin/plans/edit/{id}', 'edit')->name('admin.plans.edit');
+    // Route::get('/admin/plans/delete/{id}', 'destroy')->name('admin.plans.delete');
+    Route::post('/admin/template/store', 'store')->name('admin.store.template');
+    // Route::post('/admin/plans/update/{id}', 'update')->name('admin.plans.update');
 
 });
 
