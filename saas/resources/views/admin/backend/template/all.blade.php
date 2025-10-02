@@ -49,8 +49,10 @@
                             <div class="media media-rg media-middle media-circle text-primary bg-primary bg-opacity-20 mb-3">
                                 <em class="{{ $template->icon }}"></em>
                             </div>
-                            <h5 class="fs-4 fw-medium">{{ $template->title }}</h5>
-                            <p class="small text-light line-clamp-2">{{ $template->description }}</p>
+                            <a href="{{ route('admin.template.edit', $template->id) }}">
+                                <h5 class="fs-4 fw-medium">{{ $template->title }}</h5>
+                                <p class="small text-light line-clamp-2">{{ $template->description }}</p>
+                            </a>
                         </div>
                     </div><!-- .card -->
                 </div><!-- .col -->
