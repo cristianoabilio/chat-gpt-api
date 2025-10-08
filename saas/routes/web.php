@@ -51,9 +51,12 @@ Route::controller(TemplateController::class)->group(function() {
     Route::get('/admin/template', 'index')->name('admin.template');
     Route::get('/admin/template/add', 'create')->name('admin.create.template');
     Route::get('/admin/template/edit/{id}', 'edit')->name('admin.template.edit');
+    Route::get('/admin/template/show/{id}', 'show')->name('admin.template.show');
     // Route::get('/admin/plans/delete/{id}', 'destroy')->name('admin.plans.delete');
     Route::post('/admin/template/store', 'store')->name('admin.store.template');
     Route::post('/admin/template/update/{id}', 'update')->name('admin.template.update');
+
+    Route::post('/admin/content/generate/{id}', 'content')->name('admin.content.generate');
 
 });
 

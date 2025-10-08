@@ -46,9 +46,11 @@
                 <div class="col-sm-6 col-xxl-3 filter-item blog-content" data-category="blog-content">
                     <div class="card card-full shadow-none">
                         <div class="card-body">
-                            <div class="media media-rg media-middle media-circle text-primary bg-primary bg-opacity-20 mb-3">
-                                <em class="{{ $template->icon }}"></em>
-                            </div>
+                            <a href="{{ route('admin.template.show', $template->id) }}">
+                                <div class="media media-rg media-middle media-circle text-primary bg-primary bg-opacity-20 mb-3">
+                                    <em class="{{ $template->icon }}"></em>
+                                </div>
+                            </a>
                             <a href="{{ route('admin.template.edit', $template->id) }}">
                                 <h5 class="fs-4 fw-medium">{{ $template->title }}</h5>
                                 <p class="small text-light line-clamp-2">{{ $template->description }}</p>
