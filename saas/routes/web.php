@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\ProfileController;
@@ -52,11 +53,18 @@ Route::controller(TemplateController::class)->group(function() {
     Route::get('/admin/template/add', 'create')->name('admin.create.template');
     Route::get('/admin/template/edit/{id}', 'edit')->name('admin.template.edit');
     Route::get('/admin/template/show/{id}', 'show')->name('admin.template.show');
-    // Route::get('/admin/plans/delete/{id}', 'destroy')->name('admin.plans.delete');
     Route::post('/admin/template/store', 'store')->name('admin.store.template');
     Route::post('/admin/template/update/{id}', 'update')->name('admin.template.update');
-
     Route::post('/admin/content/generate/{id}', 'content')->name('admin.content.generate');
+});
+
+Route::controller(DocumentController::class)->group(function() {
+    Route::get('/admin/documents/all', 'index')->name('admin.documents.all');
+    // Route::get('/admin/plans/add', 'create')->name('admin.plans.add');
+    Route::get('/admin/document/edit/{id}', 'edit')->name('admin.document.edit');
+    Route::get('/admin/document/delete/{id}', 'destroy')->name('admin.document.delete');
+    // Route::post('/admin/plans/store', 'store')->name('admin.plans.store');
+    Route::post('/admin/update/document/{id}', 'update')->name('admin.update.document');
 
 });
 

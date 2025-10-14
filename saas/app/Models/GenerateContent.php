@@ -12,4 +12,9 @@ class GenerateContent extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected function template()
+    {
+        return $this->belongsTo(Template::class);
+    }
 }
