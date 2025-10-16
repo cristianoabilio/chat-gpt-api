@@ -1,52 +1,131 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}">
+    <title>Register - CopyGen - AI Writer &amp; Copywriting Landing Page HTML Template.</title>
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css?v1.0.0') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+</head>
+
+<body class="nk-body ">
+    <div class="nk-app-root " data-sidebar-collapse="lg">
+        <div class="nk-main">
+            <div class="nk-wrap has-shape flex-column">
+                <div class="nk-shape bg-shape-blur-a start-0 top-0"></div>
+                <div class="nk-shape bg-shape-blur-b end-0 bottom-0"></div>
+                <div class="text-center pt-5">
+                    <a href="index.html" class="logo-link">
+<div class="logo-wrap">
+    <img class="logo-img logo-light" src="{{ asset('backend/images/logo.png') }}" srcset="{{ asset('backend/images/logo2x.png 2x') }}" alt="">
+    <img class="logo-img logo-dark" src="{{ asset('backend/images/logo-dark.png') }}" srcset="{{ asset('backend/images/logo-dark2x.png 2x') }}" alt="">
+    <img class="logo-img logo-icon" src="{{ asset('backend/images/logo-icon.png') }}" srcset="{{ asset('backend/images/logo-icon2x.png 2x') }}" alt="">
+</div>
+                    </a>
+                </div>
+                <div class="container p-2 p-sm-4 mt-auto">
+                    <div class="row justify-content-center">
+                        <div class="col-md-7 col-lg-5 col-xl-5 col-xxl-4">
+                            <div class="nk-block">
+                                <div class="nk-block-head text-center mb-4 pb-2">
+                                    <div class="nk-block-head-content">
+                                        <h1 class="nk-block-title mb-1">Log into Your Account</h1>
+                                        <p class="small">Sign in to your account to customize your content generation settings and view your history.</p>
+                                    </div>
+                                </div>
+<form method="POST" action="{{ route('register') }}">
+    @csrf
+    <div class="row gy-3">
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-label" for="name">Name</label>
+                <div class="form-control-wrap">
+                    <input class="form-control" type="text" id="name" name="name" :value="old('name')" placeholder="Name is required." />
+                </div>
+            </div><!-- .form-group -->
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <div class="form-control-wrap">
+                    <input class="form-control" type="email" id="email" name="email" :value="old('email')" placeholder="Email is required." />
+                </div>
+            </div><!-- .form-group -->
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <div class="form-control-wrap">
+                    <a href="password" class="password-toggle form-control-icon end" title="Toggle show/hide password">
+                        <em class="icon ni ni-eye inactive"></em>
+                        <em class="icon ni ni-eye-off active"></em>
+                    </a>
+                    <input class="form-control" type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter password" />
+                </div>
+            </div><!-- .form-group -->
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-label" for="password_confirmation">Confirm Password</label>
+                <div class="form-control-wrap">
+                    <a href="password" class="password-toggle form-control-icon end" title="Toggle show/hide password">
+                        <em class="icon ni ni-eye inactive"></em>
+                        <em class="icon ni ni-eye-off active"></em>
+                    </a>
+                    <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" required autocomplete="current-password" placeholder="Enter password confirmation" />
+                </div>
+            </div><!-- .form-group -->
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
+        <div class="col-12">
+            <div class="d-grid">
+                <button class="btn btn-primary" type="submit">Register</button>
+            </div>
         </div>
-    </form>
-</x-guest-layout>
+    </div>
+</form>
+                                <div class="text-center mt-3">
+                                    <p class="small">Have an account? <a href="{{ route('login') }}">Sign in</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+@include('admin.body.footer')
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('backend/assets/js/bundle.js?v1.0.0') }}"></script>
+    <script src="{{ asset('backend/assets/js/scripts.js?v1.0.0') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
+        switch(type){
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break;
+        }
+        @endif
+    </script>
+</body>
+
+</html>

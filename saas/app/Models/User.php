@@ -40,4 +40,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected function plan()
+    {
+        return $this->belongsTo(Plan::class, 'plan_id');
+    }
 }
