@@ -49,7 +49,7 @@
                         </ul>
                     </li>
                     <li class="nk-menu-item">
-                        <a href="{{ route('admin.template') }}" class="nk-menu-link">
+                        <a href="{{ route('user.template') }}" class="nk-menu-link">
                             <span class="nk-menu-icon">
                                 <em class="icon ni ni-user"></em>
                             </span>
@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class="nk-menu-item">
-                        <a href="{{ route('admin.documents.all') }}" class="nk-menu-link">
+                        <a href="{{ route('user.document') }}" class="nk-menu-link">
                             <span class="nk-menu-icon">
                                 <em class="icon ni ni-user"></em>
                             </span>

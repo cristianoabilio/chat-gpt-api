@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\Backend\Client\UserController;
+use App\Http\Controllers\Backend\Client\UserTemplateController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
@@ -28,7 +29,24 @@ Route::middleware(['auth', IsUser::class])->group(function () {
     Route::get('/user/change-password', [UserController::class, 'changePassword'])->name('user.change.password');
     Route::post('/user/password/update', [UserController::class, 'passwordUpdate'])->name('user.password.update');
 
+    Route::get('/template', [UserTemplateController::class, 'index'])->name('admin.template');
 
+    Route::controller(UserTemplateController::class)->group(function() {
+        Route::get('/user/template', 'index')->name('user.template');
+        Route::get('/user/template/show/{id}', 'show')->name('user.template.show');
+        Route::post('/user/content/generate/{id}', 'content')->name('user.content.generate');
+
+        Route::get('/user/documents/all', 'document')->name('user.document');
+        Route::get('/user/document/edit/{id}', 'EditUserDocument')->name('user.document.edit');
+
+
+
+
+        // Route::get('/document/edit/{id}', 'edit')->name('admin.document.edit');
+        Route::get('/user/document/delete/{id}', 'UserDocumentDestroy')->name('user.document.delete');
+        Route::post('/user/update/document/{id}', 'UpdateUserDocument')->name('user.update.document');
+
+    });
 
 
 

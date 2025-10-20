@@ -1,5 +1,5 @@
-@extends('admin.dashboard')
-@section('admin')
+@extends('client.dashboard')
+@section('client')
 <div class="nk-content-inner">
     <div class="nk-content-body">
         <div class="nk-block-head nk-page-head">
@@ -11,9 +11,6 @@
                     <div class="d-flex gap gx-4">
                         <div class="">
                             <ul class="d-flex gap gx-2">
-                                <li>
-                                    <a href="{{ route('admin.create.template') }}" class="btn btn-primary">Add Template</a>
-                                </li>
                                 <li>
                                     <a href="templates-list.html" class="btn btn-md btn-icon btn-outline-light"><em class="icon ni ni-view-list-wd"></em></a>
                                 </li>
@@ -40,12 +37,10 @@
                 <div class="col-sm-6 col-xxl-3 filter-item blog-content" data-category="blog-content">
                     <div class="card card-full shadow-none">
                         <div class="card-body">
-                            <a href="{{ route('admin.template.show', $template->id) }}">
+                            <a href="{{ route('user.template.show', $template->id) }}">
                                 <div class="media media-rg media-middle media-circle text-primary bg-primary bg-opacity-20 mb-3">
                                     <em class="{{ $template->icon }}"></em>
                                 </div>
-                            </a>
-                            <a href="{{ route('admin.template.edit', $template->id) }}">
                                 <h5 class="fs-4 fw-medium">{{ $template->title }}</h5>
                                 <p class="small text-light line-clamp-2">{{ $template->description }}</p>
                             </a>
