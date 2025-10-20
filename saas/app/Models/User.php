@@ -41,7 +41,7 @@ class User extends Authenticatable
         ];
     }
 
-    protected function plan()
+    public function plan()
     {
         return $this->belongsTo(Plan::class, 'plan_id');
     }
