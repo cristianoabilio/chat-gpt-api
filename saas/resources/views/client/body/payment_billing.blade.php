@@ -1,3 +1,23 @@
+@php
+    $id = Auth::user()->id;
+    $profile= App\Models\User::with('plan', 'billingHistory.plan')->find($id);
+
+    $planPrices = $profile->plan->price ?? 0;
+
+    $planPrice = $profile->plan->price ?? ($planPrices[$profile->plan->name] ?? 0);
+
+    $lastBilling = $profile->billingHistory->sortByDesc('payment_date')->first();
+
+    $nextDueDate = $lastBilling
+        ? \Carbon\Carbon::parse($lastBilling->payment_date)->addMonth()->format('M d, Y')
+        : now()->addMonth()->format('M d, Y');
+
+    $payment = $profile->payment_method ?? 'Bank Transfer';
+    $paymentIcon = $profile->payment_icon ?? 'upload/paypal.png';
+
+@endphp
+
+
 <div class="tab-pane fade" id="payment-billing-tab-pane">
     <div class="d-flex flex-wrap align-items-center justify-content-between border-bottom border-light mt-5 mb-4 pb-1">
         <h5 class="mb-0">Your Subscription</h5>
@@ -23,7 +43,7 @@
             <div class="card shadow-none">
                 <div class="card-body">
                     <div class="text-light mb-2">Plan</div>
-                    <h3 class="fw-normal">Professional Plan</h3>
+                    <h3 class="fw-normal">{{ $profile->plan->name }} Plan</h3>
                 </div>
             </div>
         </div>
@@ -31,7 +51,7 @@
             <div class="card shadow-none">
                 <div class="card-body">
                     <div class="text-light mb-2">Recurring Payment</div>
-                    <h3 class="fw-normal">$23/Month</h3>
+                    <h3 class="fw-normal">${{ number_format($planPrices, 2) }}/Month</h3>
                 </div>
             </div>
         </div>
@@ -39,7 +59,7 @@
             <div class="card shadow-none">
                 <div class="card-body">
                     <div class="text-light mb-2">Next Due Date</div>
-                    <h3 class="fw-normal">Mar 15, 2023</h3>
+                    <h3 class="fw-normal">{{ $nextDueDate }}</h3>
                 </div>
             </div>
         </div>
@@ -48,8 +68,8 @@
                 <div class="card-body">
                     <div class="text-light mb-2">Payment Method</div>
                     <div class="d-flex align-items-center">
-                        <img src="images//icons/paypal.png" alt="" class="icon" />
-                        <h3 class="fw-normal ms-2">PayPal</h3>
+                        <img src="{{ asset('backend/images/icons/paypal.png') }}" alt="" class="icon" />
+                        <h3 class="fw-normal ms-2">{{ $payment }}</h3>
                     </div>
                 </div>
             </div>
@@ -78,42 +98,45 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="tb-col">
-                        <div class="caption-text">Starter - 12 Months <div class="d-sm-none dot bg-success"></div>
-                        </div>
-                    </td>
-                    <td class="tb-col tb-col-md">
-                        <div class="fs-6 text-light d-inline-flex flex-wrap gap gx-2"><span>Feb 15,2023 </span> <span>02:31 PM</span></div>
-                    </td>
-                    <td class="tb-col tb-col-sm">
-                        <div class="fs-6 text-light">$23.00</div>
-                    </td>
-                    <td class="tb-col tb-col-sm">
-                        <div class="badge text-bg-success-soft rounded-pill px-2 py-1 fs-6 lh-sm">Paid</div>
-                    </td>
-                    <td class="tb-col tb-col-end">
-                        <a href="#" class="link">Get Invoice</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tb-col">
-                        <div class="caption-text">Starter - 12 Months <div class="d-sm-none dot bg-warning"></div>
-                        </div>
-                    </td>
-                    <td class="tb-col tb-col-md">
-                        <div class="fs-6 text-light d-inline-flex flex-wrap gap gx-2"><span>Feb 15,2023 </span> <span>02:31 PM</span></div>
-                    </td>
-                    <td class="tb-col tb-col-sm">
-                        <div class="fs-6 text-light">$23.00</div>
-                    </td>
-                    <td class="tb-col tb-col-sm">
-                        <div class="badge text-bg-warning-soft rounded-pill px-2 py-1 fs-6 lh-sm">Faild</div>
-                    </td>
-                    <td class="tb-col tb-col-end">
-                        <a href="#" class="link">Get Invoice</a>
-                    </td>
-                </tr>
+                @forelse ($profile->billingHistory as $billing)
+                    <tr>
+                        <td class="tb-col">
+                            <div class="caption-text">{{ $billing->plan->name }} - 1 Month <div class="d-sm-none dot bg-success"></div>
+                            </div>
+                        </td>
+                        <td class="tb-col tb-col-md">
+                            <div class="fs-6 text-light d-inline-flex flex-wrap gap gx-2"><span>{{ \Carbon\Carbon::parse($billing->payment_date)->format('M d, Y') }} </span> <span>{{ \Carbon\Carbon::parse($billing->payment_date)->format('H:i A') }}</span></div>
+                        </td>
+                        <td class="tb-col tb-col-sm">
+                            <div class="fs-6 text-light">${{ number_format($billing->total, 2) }}</div>
+                        </td>
+                        <td class="tb-col tb-col-sm">
+                            @php
+                                switch ($billing->status) {
+                                    case 'Paid':
+                                        $bgClass = 'text-bg-success-soft';
+                                    break;
+                                    case 'Pending':
+                                        $bgClass = 'text-bg-info-soft';
+                                    break;
+                                    case 'Failed':
+                                        $bgClass = 'text-bg-warning-soft';
+                                    break;
+                                }
+                            @endphp
+                            <div class="badge {{ $bgClass }} rounded-pill px-2 py-1 fs-6 lh-sm">{{ $billing->status }}</div>
+                        </td>
+                        <td class="tb-col tb-col-end">
+                            <a href="#" class="link">Get Invoice</a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="text-center" colspan="5">
+                            <div class="caption-text">No Billing History</div>
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

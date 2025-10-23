@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
+use App\Http\Controllers\Backend\Client\CheckoutController;
 use App\Http\Controllers\Backend\Client\UserController;
 use App\Http\Controllers\Backend\Client\UserTemplateController;
 use App\Http\Controllers\ProfileController;
@@ -29,7 +30,7 @@ Route::middleware(['auth', IsUser::class])->group(function () {
     Route::get('/user/change-password', [UserController::class, 'changePassword'])->name('user.change.password');
     Route::post('/user/password/update', [UserController::class, 'passwordUpdate'])->name('user.password.update');
 
-    Route::get('/template', [UserTemplateController::class, 'index'])->name('admin.template');
+    // Route::get('/template', [UserTemplateController::class, 'index'])->name('user.template');
 
     Route::controller(UserTemplateController::class)->group(function() {
         Route::get('/user/template', 'index')->name('user.template');
@@ -38,17 +39,17 @@ Route::middleware(['auth', IsUser::class])->group(function () {
 
         Route::get('/user/documents/all', 'document')->name('user.document');
         Route::get('/user/document/edit/{id}', 'EditUserDocument')->name('user.document.edit');
-
-
-
-
-        // Route::get('/document/edit/{id}', 'edit')->name('admin.document.edit');
         Route::get('/user/document/delete/{id}', 'UserDocumentDestroy')->name('user.document.delete');
         Route::post('/user/update/document/{id}', 'UpdateUserDocument')->name('user.update.document');
 
     });
 
+    Route::controller(CheckoutController::class)->group(function() {
+        Route::get('/user/checkout', 'index')->name('user.checkout');
+        Route::post('/user/process/checkout', 'store')->name('user.process.checkout');
+        Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
 
+    });
 
 });
 /// End User Routes
