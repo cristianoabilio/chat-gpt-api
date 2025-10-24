@@ -99,6 +99,10 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
 
     });
 
+    Route::controller(AdminController::class)->group(function() {
+        Route::get('/orders/all', 'orders')->name('admin.orders.all');
+        Route::get('/update/orders/status/{id}', 'updateOrderStatus')->name('update.order.status');
+    });
 });
 /// Eend User Routes
 

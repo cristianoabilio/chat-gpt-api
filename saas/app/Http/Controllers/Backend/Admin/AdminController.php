@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillingHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,6 +107,27 @@ class AdminController extends Controller
 
         return redirect()->route('login')->with($notification);
 
+    }
+
+    public function orders()
+    {
+        $billingHistories = BillingHistory::orderBy('id', 'desc')->get();
+
+        return view('admin.backend.order.all', compact('billingHistories'));
+    }
+
+    public function updateOrderStatus($id)
+    {
+        $billing = BillingHistory::findOrFail($id);
+        $billing->status = 'Paid';
+        $billing->save();
+
+        $notification = [
+            'type' => 'success',
+            'message' => 'Billing Status updated successfully.'
+        ];
+
+        return redirect()->back()->with($notification);
     }
 
     private function deletePhoto(string $oldPhotoPath): void
