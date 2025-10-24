@@ -49,6 +49,9 @@ Route::middleware(['auth', IsUser::class])->group(function () {
         Route::post('/user/process/checkout', 'store')->name('user.process.checkout');
         Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
 
+        Route::get('/invoice/generate/{id}', 'invoiceGenerate')->name('invoice.generate');
+
+
     });
 
 });

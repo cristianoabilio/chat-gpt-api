@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Client;
 use App\Http\Controllers\Controller;
 use App\Models\BillingHistory;
 use App\Models\Plan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,5 +57,16 @@ class CheckoutController extends Controller
     public function paymentSuccess()
     {
         return view('client.backend.checkout.payment_success');
+    }
+
+    public function invoiceGenerate($id)
+    {
+        $billing = BillingHistory::with('user', 'plan')->findOrFail($id);
+
+        $pdf = Pdf::loadView('client.backend.checkout.invoice', compact('billing'));
+
+        return $pdf->download('invoice' . $billing->id . '.pdf');
+
+
     }
 }
