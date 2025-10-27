@@ -13,7 +13,7 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.index');
 });
 
 
