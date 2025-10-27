@@ -57,7 +57,15 @@
                     </div>
                     <ul class="nk-menu-buttons flex-lg-row-reverse">
                         <li><a href="#" class="btn btn-primary">Start Writing</a></li>
-                        <li><a class="link link-dark" href="login.html">Login </a></li>
+                        @if (auth()->check())
+                            <li>
+                                <a target="blank" class="link link-dark" href="{{ auth()->user()->role == 'admin' ? route('admin.dashboard') : route('dashboard') }}">
+                                    {{ auth()->user()->name }} Dashboard
+                                </a>
+                            </li>
+                        @else
+                            <li><a href="{{ route('login') }}" class="link link-dark">Login</a></li>
+                        @endif
                     </ul><!-- .nk-menu-buttons -->
                 </nav><!-- .nk-header-menu -->
             </div><!-- .nk-header-wrap -->
