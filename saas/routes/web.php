@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\ChatController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
@@ -70,6 +71,14 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/change-password', [AdminController::class, 'changePassword'])->name('admin.change.password');
     Route::post('/profile/update', [AdminController::class, 'profileUpdate'])->name('admin.profile.update');
     Route::post('/password/update', [AdminController::class, 'passwordUpdate'])->name('admin.password.update');
+
+    Route::controller(ChatController::class)->group(function() {
+        Route::get('/chat/assistants', 'index')->name('chat.assistants.all');
+        Route::get('/chat/assistant/add', 'create')->name('chat.assistant.create');
+        Route::post('/chat/assistant/store', 'store')->name('chat.assistant.store');
+
+
+    });
 
     Route::controller(PlanController::class)->group(function() {
         Route::get('/plans/all', 'index')->name('admin.plans.all');
