@@ -130,8 +130,11 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     });
 
 });
-/// Eend User Routes
+/// End User Routes
 
+
+Route::post('/update-slider/{id}', [HomeController::class, 'updateSlider']);
+Route::post('/update-slider-image/{id}', [HomeController::class, 'updateSliderImage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
