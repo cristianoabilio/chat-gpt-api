@@ -40,7 +40,7 @@
                 <div class="col-sm-6 col-xxl-3 filter-item blog-content" data-category="blog-content">
                     <div class="card card-full shadow-none">
                         <div class="card-body">
-                            <a href="{{ route('admin.template.show', $assistant->id) }}">
+                            <a href="{{ route('chat-assistant.chat', $assistant->id) }}">
                                 <div class="text-primary bg-opacity-20 mb-3">
                                     <img id="showImage" src="{{ (! empty($assistant->avatar))
                                         ? url('upload/avatar/' . $assistant->avatar)

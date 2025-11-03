@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\Backend\Client\CheckoutController;
 use App\Http\Controllers\Backend\Client\UserController;
 use App\Http\Controllers\Backend\Client\UserTemplateController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
@@ -77,6 +78,16 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::get('/chat/assistant/add', 'create')->name('chat.assistant.create');
         Route::post('/chat/assistant/store', 'store')->name('chat.assistant.store');
 
+        Route::get('/chat/assistant/chat/{assistantId}', 'chatAssistant')->name('chat-assistant.chat');
+        Route::post('/chat/assistant/send/{assistantId}', 'send')->name('chat-assistant.send');
+        Route::get('/chat/assistant/new/{assistantId}', 'newConversation')->name('chat-assistant.new');
+        // Route::get('/chat/assistant/show/{assistantId}/{conversationId}', 'show')->name('chat-assistant.show');
+        Route::get('/chat-assistants/{assistantId}/conversation/{conversationId}', 'SelectedConversation')->name('chat-assistants.select');
+
+
+
+
+
 
     });
 
@@ -112,6 +123,12 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::get('/orders/all', 'orders')->name('admin.orders.all');
         Route::get('/update/orders/status/{id}', 'updateOrderStatus')->name('update.order.status');
     });
+
+    Route::controller(HomeController::class)->group(function() {
+        Route::get('/slider', 'slider')->name('home.slider');
+        Route::post('/update/slider', 'update')->name('update.slider');
+    });
+
 });
 /// Eend User Routes
 

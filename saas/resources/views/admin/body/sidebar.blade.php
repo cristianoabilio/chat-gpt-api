@@ -100,6 +100,16 @@
                             <span class="nk-menu-text">Chat Assistants</span>
                         </a>
                     </li>
+
+                    <li class="nk-menu-item">
+                        <a href="{{ route('home.slider') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-user"></em>
+                            </span>
+                            <span class="nk-menu-text">Setup Slider</span>
+                        </a>
+                    </li>
+
                     <li class="nk-menu-item">
                         <a href="{{ route('profile.edit') }}" class="nk-menu-link">
                             <span class="nk-menu-icon">
