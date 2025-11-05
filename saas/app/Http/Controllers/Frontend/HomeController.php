@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Heading;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
+use PhpParser\Node\Expr\FuncCall;
 
 class HomeController extends Controller
 {
@@ -106,6 +108,17 @@ class HomeController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Updated failed.'
+        ]);
+    }
+
+    public function updateHeading(Request $request, $id)
+    {
+        $heading = Heading::findOrFail($id);
+        $heading->update($request->only(['title', 'description']));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Updated successfully.'
         ]);
     }
 }

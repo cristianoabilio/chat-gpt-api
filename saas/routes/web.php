@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\ChatController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
+use App\Http\Controllers\Backend\Admin\HeadingController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\Backend\Client\CheckoutController;
@@ -129,12 +130,26 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::post('/update/slider', 'update')->name('update.slider');
     });
 
+    Route::controller(HeadingController::class)->group(function() {
+        Route::get('/headings', 'index')->name('all.heading');
+        Route::get('/add/heading', 'create')->name('add.heading');
+        Route::post('/store/heading', 'store')->name('store.heading');
+        Route::get('/edit/heading/{id}', 'edit')->name('edit.heading');
+        Route::post('/update/heading/{id}', 'update')->name('update.heading');
+        Route::get('/delete/heading/{id}', 'destroy')->name('delete.heading');
+    });
 });
 /// End User Routes
 
 
 Route::post('/update-slider/{id}', [HomeController::class, 'updateSlider']);
 Route::post('/update-slider-image/{id}', [HomeController::class, 'updateSliderImage']);
+
+Route::post('/update-get-started/{id}', [HomeController::class, 'updateHeading']);
+Route::post('/update-how-it-works/{id}', [HomeController::class, 'updateHeading']);
+Route::post('/update-pricing/{id}', [HomeController::class, 'updateHeading']);
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
