@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\Admin\ChatController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\HeadingController;
 use App\Http\Controllers\Backend\Admin\PlanController;
+use App\Http\Controllers\Backend\Admin\QuestionController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\Backend\Client\CheckoutController;
 use App\Http\Controllers\Backend\Client\UserController;
@@ -137,6 +138,16 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::get('/edit/heading/{id}', 'edit')->name('edit.heading');
         Route::post('/update/heading/{id}', 'update')->name('update.heading');
         Route::get('/delete/heading/{id}', 'destroy')->name('delete.heading');
+    });
+
+
+    Route::controller(QuestionController::class)->group(function() {
+        Route::get('/questions', 'index')->name('all.questions');
+        Route::get('/add/questions', 'create')->name('add.questions');
+        Route::post('/store/questions', 'store')->name('store.questions');
+        Route::get('/edit/questions/{id}', 'edit')->name('edit.questions');
+        Route::post('/update/questions/{id}', 'update')->name('update.questions');
+        Route::get('/delete/questions/{id}', 'destroy')->name('delete.questions');
     });
 });
 /// End User Routes

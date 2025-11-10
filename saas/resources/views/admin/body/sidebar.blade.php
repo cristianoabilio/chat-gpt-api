@@ -124,8 +124,8 @@
                                 </a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="{{ route('admin.change.password') }}" class="nk-menu-link">
-                                    <span class="nk-menu-text">Add Plan</span>
+                                <a href="{{ route('all.questions') }}" class="nk-menu-link">
+                                    <span class="nk-menu-text">All Questions</span>
                                 </a>
                             </li>
                         </ul>

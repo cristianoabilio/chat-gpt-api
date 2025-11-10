@@ -6,13 +6,13 @@
         <div class="nk-block-head nk-page-head">
             <div class="nk-block-head-between">
                 <div class="nk-block-head-content">
-                    <h2 class="display-6">Edit Heading </h2>
+                    <h2 class="display-6">Edit Questions </h2>
                 </div>
             </div>
         </div><!-- .nk-page-head -->
-        <form action="{{ route('update.questions', $heading->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('update.questions', $question->id) }}" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="id" value="{{ $heading->id }}" />
+            <input type="hidden" name="id" value="{{ $question->id }}" />
         <div class="nk-block">
             <div class="card shadown-none">
 
@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label for="title" class="form-label">Title</label>
                                 <div class="form-control-wrap">
-                                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{old('title', $heading->title) }}">
+                                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{old('title', $question->title) }}">
                                     @error('title')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
                                 <div class="form-control-wrap">
-                                    <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{old('description', $heading->description)}}">
+                                    <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{old('description', $question->description)}}">
                                     @error('description')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
