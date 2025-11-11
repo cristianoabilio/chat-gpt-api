@@ -160,6 +160,12 @@ Route::post('/update-get-started/{id}', [HomeController::class, 'updateHeading']
 Route::post('/update-how-it-works/{id}', [HomeController::class, 'updateHeading']);
 Route::post('/update-pricing/{id}', [HomeController::class, 'updateHeading']);
 
+    Route::controller(HomeController::class)->group(function() {
+        Route::get('/use-case', 'useCase')->name('home.usecase');
+        Route::get('/feature', 'feature')->name('home.feature');
+        Route::get('/pricing', 'pricing')->name('home.pricing');
+    });
+
 
 
 Route::middleware('auth')->group(function () {

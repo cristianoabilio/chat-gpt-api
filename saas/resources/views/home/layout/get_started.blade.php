@@ -1,3 +1,4 @@
+    @include('home.layout.slider')
 <section class="section section-bottom-0 has-shape">
     <div class="nk-shape bg-shape-blur-a mt-8 start-50 top-0 translate-middle-x"></div>
     <div class="container">

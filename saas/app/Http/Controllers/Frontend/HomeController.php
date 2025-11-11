@@ -121,4 +121,19 @@ class HomeController extends Controller
             'message' => 'Updated successfully.'
         ]);
     }
+
+    public function useCase()
+    {
+        return view('home.pages.body.use_case');
+    }
+
+    public function feature()
+    {
+        return view('home.pages.body.feature');
+    }
+
+    public function pricing()
+    {
+        return view('home.pages.body.pricing');
+    }
 }
