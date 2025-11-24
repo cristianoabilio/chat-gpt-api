@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\ChatController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
+use App\Http\Controllers\Backend\Admin\GenerateController;
 use App\Http\Controllers\Backend\Admin\HeadingController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\QuestionController;
@@ -83,15 +84,9 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::get('/chat/assistant/chat/{assistantId}', 'chatAssistant')->name('chat-assistant.chat');
         Route::post('/chat/assistant/send/{assistantId}', 'send')->name('chat-assistant.send');
         Route::get('/chat/assistant/new/{assistantId}', 'newConversation')->name('chat-assistant.new');
-        // Route::get('/chat/assistant/show/{assistantId}/{conversationId}', 'show')->name('chat-assistant.show');
         Route::get('/chat-assistants/{assistantId}/conversation/{conversationId}', 'SelectedConversation')->name('chat-assistants.select');
-
-
-
-
-
-
     });
+
 
     Route::controller(PlanController::class)->group(function() {
         Route::get('/plans/all', 'index')->name('admin.plans.all');
@@ -129,6 +124,9 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::controller(HomeController::class)->group(function() {
         Route::get('/slider', 'slider')->name('home.slider');
         Route::post('/update/slider', 'update')->name('update.slider');
+
+        Route::get('/contact', 'allContact')->name('admin.contact');
+        Route::get('/delete/contact/{id}', 'destroyContact')->name('admin.contact.delete');
     });
 
     Route::controller(HeadingController::class)->group(function() {
@@ -138,6 +136,16 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::get('/edit/heading/{id}', 'edit')->name('edit.heading');
         Route::post('/update/heading/{id}', 'update')->name('update.heading');
         Route::get('/delete/heading/{id}', 'destroy')->name('delete.heading');
+    });
+
+    Route::controller(GenerateController::class)->group(function() {
+        Route::get('/generate-images', 'create')->name('generate.image');
+        // Route::get('/template/add', 'create')->name('admin.create.template');
+        // Route::get('/template/edit/{id}', 'edit')->name('admin.template.edit');
+        // Route::get('/template/show/{id}', 'show')->name('admin.template.show');
+        // Route::post('/template/store', 'store')->name('admin.store.template');
+        // Route::post('/template/update/{id}', 'update')->name('admin.template.update');
+        // Route::post('/content/generate/{id}', 'content')->name('admin.content.generate');
     });
 
 
@@ -160,12 +168,18 @@ Route::post('/update-get-started/{id}', [HomeController::class, 'updateHeading']
 Route::post('/update-how-it-works/{id}', [HomeController::class, 'updateHeading']);
 Route::post('/update-pricing/{id}', [HomeController::class, 'updateHeading']);
 
-    Route::controller(HomeController::class)->group(function() {
-        Route::get('/use-case', 'useCase')->name('home.usecase');
-        Route::get('/feature', 'feature')->name('home.feature');
-        Route::get('/pricing', 'pricing')->name('home.pricing');
-    });
+Route::controller(HomeController::class)->group(function() {
+    Route::get('/use-case', 'useCase')->name('home.usecase');
+    Route::get('/feature', 'feature')->name('home.feature');
+    Route::get('/pricing', 'pricing')->name('home.pricing');
+    Route::get('/contact', 'contact')->name('home.contact');
+    Route::post('/send-contact', 'sendContact')->name('send.contact');
+});
 
+Route::controller(GenerateController::class)->group(function() {
+    Route::post('/save-generated-image', 'store')->name('save.generated.image');
+    Route::get('/generated-images', 'index')->name('all.generated.images');
+});
 
 
 Route::middleware('auth')->group(function () {

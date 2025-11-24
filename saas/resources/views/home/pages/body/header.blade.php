@@ -42,8 +42,8 @@
                             </a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="usecase.html" class="nk-menu-link">
-                                <span class="nk-menu-text">Use Cases</span>
+                            <a href="{{ route('home.contact') }}"" class="nk-menu-link">
+                                <span class="nk-menu-text">Contact</span>
                             </a>
                         </li>
                     </ul><!-- .nk-menu-list -->

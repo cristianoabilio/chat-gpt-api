@@ -84,6 +84,26 @@
                             <span class="nk-menu-text">Documents</span>
                         </a>
                     </li>
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-folder-list"></em>
+                            </span>
+                            <span class="nk-menu-text">Generate Image</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('generate.image') }}" class="nk-menu-link">
+                                    <span class="nk-menu-text">Generate New Image</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('all.generated.images') }}" class="nk-menu-link">
+                                    <span class="nk-menu-text">All Images</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nk-menu-item">
                         <a href="{{ route('admin.orders.all') }}" class="nk-menu-link">
                             <span class="nk-menu-icon">
@@ -107,6 +127,15 @@
                                 <em class="icon ni ni-user"></em>
                             </span>
                             <span class="nk-menu-text">Setup Slider</span>
+                        </a>
+                    </li>
+
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.contact') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-user"></em>
+                            </span>
+                            <span class="nk-menu-text">Contacts</span>
                         </a>
                     </li>
 
