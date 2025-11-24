@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Models\Heading;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -135,5 +136,54 @@ class HomeController extends Controller
     public function pricing()
     {
         return view('home.pages.body.pricing');
+    }
+
+    public function contact()
+    {
+        return view('home.pages.body.contact');
+    }
+
+    public function sendContact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
+
+        Contact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ]);
+
+        $notification = [
+            'type' => 'success',
+            'message' => 'Contact sent successfully.'
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function allContact()
+    {
+        $contacts = Contact::latest()->get();
+
+        return view('admin.backend.contact.all-contact', compact('contacts'));
+
+    }
+
+    public function destroyContact($id)
+    {
+        Contact::find($id)->delete();
+
+        $notification = [
+            'type' => 'success',
+            'message' => 'Contact deleted successfully.'
+        ];
+
+        return redirect()->route('admin.contact')->with($notification);
     }
 }
