@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\GeneratedAudio;
 use App\Models\GenerateImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,7 @@ class GenerateController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $images = GenerateImage::where('user_id', $id)
-            ->orderBy('id', 'desc')
+        $images = GenerateImage::orderBy('id', 'desc')
             ->get();
 
         return view('admin.backend.generate.all-images', compact('images'));
@@ -81,12 +81,65 @@ class GenerateController extends Controller
         ]);
     }
 
+    public function createAudio()
+    {
+        return view('admin.backend.generate.generate-audio');
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function allGeneratedAudios()
+    {
+        $id = Auth::user()->id;
+        $audios = GeneratedAudio::orderBy('id', 'desc')
+            ->get();
+
+        return view('admin.backend.generate.all-audios', compact('audios'));
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function storeAudio(Request $request)
     {
-        //
+        $request->validate([
+            'prompt' => 'required|string',
+        ]);
+
+        $text = $request->input('prompt');
+
+        /// Step 1: Generate image using OpenAI
+        $response = OpenAI::audio()->speech([
+            'model' => 'tts-1',
+            'input' => $text,
+            'voice' => 'nova',
+            'response_format' => 'mp3',
+        ]);
+        // Step 2: Download the image
+
+        $fileName = 'tts_' . time() . '_' . Str::random(5) . '.mp3';
+        $savePath = public_path('upload/generated_audio/');
+
+        /// Step 3: Ensure the directory exists
+        if (!File::exists($savePath)) {
+            File::makeDirectory($savePath, 0755, true);
+        }
+
+        // Step 4: Save image to public folder
+        file_put_contents($savePath . $fileName, $response);
+
+        $audio = GeneratedAudio::create([
+            'user_id' => Auth::id(),
+            'prompt' => $text,
+            'audio_path' => 'upload/generated_audio/' . $fileName,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'audio_url' => asset('upload/generated_audio/'.$fileName),
+            'message' => 'Audio generated and saved successfully',
+        ]);
     }
 
     /**

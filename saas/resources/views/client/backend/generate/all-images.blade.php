@@ -1,5 +1,5 @@
-@extends('admin.dashboard')
-@section('admin')
+@extends('client.dashboard')
+@section('client')
 
 <div class="nk-content-inner">
     <div class="nk-content-body">
@@ -32,5 +32,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection

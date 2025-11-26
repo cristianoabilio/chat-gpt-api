@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\Admin\QuestionController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\Backend\Client\CheckoutController;
 use App\Http\Controllers\Backend\Client\UserController;
+use App\Http\Controllers\Backend\Client\UserGenerateController;
 use App\Http\Controllers\Backend\Client\UserTemplateController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -55,8 +56,14 @@ Route::middleware(['auth', IsUser::class])->group(function () {
         Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
 
         Route::get('/invoice/generate/{id}', 'invoiceGenerate')->name('invoice.generate');
+    });
 
+    Route::controller(UserGenerateController::class)->group(function() {
+        Route::get('/user-generate-images', 'create')->name('user.generate.image');
+        Route::get('/user-generated-images', 'index')->name('user.all.generated.images');
 
+        Route::get('/user-generate-audios', 'createAudio')->name('user.generate.audio');
+        Route::get('/user-generated-audios', 'allGeneratedAudiosByUser')->name('user.all.generated.audios');
     });
 
 });
@@ -140,12 +147,7 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
 
     Route::controller(GenerateController::class)->group(function() {
         Route::get('/generate-images', 'create')->name('generate.image');
-        // Route::get('/template/add', 'create')->name('admin.create.template');
-        // Route::get('/template/edit/{id}', 'edit')->name('admin.template.edit');
-        // Route::get('/template/show/{id}', 'show')->name('admin.template.show');
-        // Route::post('/template/store', 'store')->name('admin.store.template');
-        // Route::post('/template/update/{id}', 'update')->name('admin.template.update');
-        // Route::post('/content/generate/{id}', 'content')->name('admin.content.generate');
+        Route::get('/generate-audio', 'createAudio')->name('generate.audio');
     });
 
 
@@ -179,8 +181,10 @@ Route::controller(HomeController::class)->group(function() {
 Route::controller(GenerateController::class)->group(function() {
     Route::post('/save-generated-image', 'store')->name('save.generated.image');
     Route::get('/generated-images', 'index')->name('all.generated.images');
-});
 
+    Route::post('/save-generated-audio', 'storeAudio')->name('save.generated.audio');
+    Route::get('/generated-audios', 'allGeneratedAudios')->name('all.generated.audios');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

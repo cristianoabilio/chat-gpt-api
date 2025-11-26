@@ -104,6 +104,26 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-folder-list"></em>
+                            </span>
+                            <span class="nk-menu-text">Generate Audio</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('generate.audio') }}" class="nk-menu-link">
+                                    <span class="nk-menu-text">Generate New Audio</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('all.generated.audios') }}" class="nk-menu-link">
+                                    <span class="nk-menu-text">All Audios</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nk-menu-item">
                         <a href="{{ route('admin.orders.all') }}" class="nk-menu-link">
                             <span class="nk-menu-icon">
